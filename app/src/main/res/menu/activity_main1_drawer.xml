@@ -7,6 +7,18 @@
             android:icon="@android:drawable/ic_menu_my_calendar"
             android:title="Planning" />
         <item
+            android:id="@+id/nav_projet"
+            android:icon="@mipmap/ic_hourglass_empty_black_24dp"
+            android:title="Projet non validée " />
+        <item
+            android:id="@+id/nav_projet_v"
+            android:icon="@mipmap/ic_hourglass_full_black_24dp"
+            android:title="Projet " />
+        <item
+            android:id="@+id/nav_projet_en"
+            android:icon="@mipmap/ic_hourglass_full_black_24dp"
+            android:title="Projet En realisations " />
+        <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_group_work_black_24dp"
             android:title="Equipe" />
@@ -27,7 +39,7 @@
                 android:icon="@drawable/ic_notifications_black_24dp"
                 android:title="Notification" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_lock_black_24dp"
                 android:title="logout" />
         </menu>

@@ -34,5 +34,10 @@ public class MaterielFragment extends Fragment {
                 Toast.makeText(getContext(),"hello",Toast.LENGTH_SHORT).show();
             }
         });
+        initViews();
+    }
+
+    private void initViews() {
+
     }
 }

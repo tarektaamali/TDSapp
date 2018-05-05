@@ -1,6 +1,8 @@
 package com.mpdam.info.tdsapp.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
@@ -11,10 +13,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.mpdam.info.tdsapp.Model.Token;
 import com.mpdam.info.tdsapp.R;
+import com.mpdam.info.tdsapp.remote.APIService;
+import com.mpdam.info.tdsapp.remote.ApiUtils;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    TextView txt;
+    private Handler mHandler;
+    private View navHeader;
+    private NavigationView navigationView;
+    private String token;
+    public static APIService mAPIService;
+    static String choix="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +42,17 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mAPIService = ApiUtils.getAPIService();
+        mHandler = new Handler();
+        Intent intent=getIntent();
+        Bundle b =intent.getExtras();
+       String username=b.getString("user");
+       token=b.getString("token");
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navHeader = navigationView.getHeaderView(0);
+        //txtName = (TextView) navHeader.findViewById(R.id.name);
+        txt=(TextView)navHeader.findViewById(R.id.textuser);
+         txt.setText(username);
 
        /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -80,37 +111,61 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-       /* int id = item.getItemId();
+      int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        if (id == R.id.nav_logout) {
+            Toast.makeText(getApplicationContext(),token,Toast.LENGTH_SHORT).show();
+            logout(token);
 
         }
 
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);*/
+        drawer.closeDrawer(GravityCompat.START);
         displaySelectedScreen(item.getItemId());
         return true;
+    }
+
+    private void logout(String token) {
+        mAPIService.logout(token).enqueue(new Callback<Token>() {
+            @Override
+            public void onResponse(Call<Token> call, Response<Token> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(getApplicationContext(),response.body().getMessage().toString(),Toast.LENGTH_SHORT).show();
+                    Intent i=new Intent(MainActivity.this,loginActivity.class);
+                    startActivity(i);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Token> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private void displaySelectedScreen(int itemId) {
 
         //creating fragment object
         Fragment fragment = null;
-
         //initializing the fragment object which is selected
         switch (itemId) {
             case R.id.nav_camera:
                 fragment = new planningFragment();
+                break;
+            case R.id.nav_projet:
+                fragment = new ProjetFragment();
+                choix="projet";
+                break;
+            case R.id.nav_projet_v:
+                fragment = new ProjetFragment();
+                choix="non_valide";
+                break;
+            case R.id.nav_projet_en:
+                fragment = new ProjetFragment();
+                choix="en_realisation";
                 break;
             case R.id.nav_gallery:
                 fragment = new employesFragment();
@@ -119,7 +174,7 @@ public class MainActivity extends AppCompatActivity
                 fragment = new MaterielFragment();
                 break;
             case R.id.nav_slideshow:
-                fragment = new rapportFragment();
+                fragment = new RapportFragment();
                 break;
         }
 
