@@ -1,7 +1,10 @@
 package com.mpdam.info.tdsapp.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 import com.mpdam.info.tdsapp.Model.User;
 import com.mpdam.info.tdsapp.Model.UserResponse;
 import com.mpdam.info.tdsapp.R;
+import com.mpdam.info.tdsapp.firebase.Constants;
 import com.mpdam.info.tdsapp.internet.InternetConnection;
 import com.mpdam.info.tdsapp.remote.APIService;
 import com.mpdam.info.tdsapp.remote.ApiUtils;
@@ -35,11 +39,16 @@ public class loginActivity extends AppCompatActivity implements TextWatcher, Com
     SharedPreferences.Editor editor;
     private APIService mAPIService;
     private static final String PREF_NAME = "prefs";
+    SharedPreferences sharedPreferences1;
+    SharedPreferences.Editor editor1;
+    private static final String PREF_NAME1 = "prefs_token";
+    private static final String KEY_FCM = "devices_token";
     private static final String KEY_REMEMBER = "remember";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASS = "password";
     private static final String KEY_TOKEN= "token";
     private static final String TAG ="" ;
+    String device_token;
     private   String token="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +56,16 @@ public class loginActivity extends AppCompatActivity implements TextWatcher, Com
         setContentView(R.layout.activity_login);
         mEmailEdit=(EditText)findViewById(R.id.email);
         mPasswordEdit=(EditText)findViewById(R.id.password);
+        sharedPreferences1 = getSharedPreferences(PREF_NAME1, Context.MODE_PRIVATE);
         sharedPreferences = getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE);
+        editor1 = sharedPreferences1.edit();
         editor = sharedPreferences.edit();
+        fire();
         rem_userpass = (CheckBox)findViewById(R.id.checkBox);
         if(sharedPreferences.getBoolean(KEY_REMEMBER, false))
             rem_userpass.setChecked(true);
         else
             rem_userpass.setChecked(false);
-
         mEmailEdit.setText(sharedPreferences.getString(KEY_USERNAME,""));
         mPasswordEdit.setText(sharedPreferences.getString(KEY_PASS,""));
        Toast.makeText(getApplicationContext(),sharedPreferences.getString(KEY_TOKEN,""),Toast.LENGTH_SHORT).show();
@@ -63,7 +74,23 @@ public class loginActivity extends AppCompatActivity implements TextWatcher, Com
         rem_userpass.setOnCheckedChangeListener(this);
         mAPIService = ApiUtils.getAPIService();
     }
+
+    private void fire() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationManager mNotificationManager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(Constants.CHANNEL_ID, Constants.CHANNEL_NAME, importance);
+            mChannel.setDescription(Constants.CHANNEL_DESCRIPTION);
+            mChannel.enableLights(true);
+            mChannel.setLightColor(Color.RED);
+            mChannel.enableVibration(true);
+            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+            mNotificationManager.createNotificationChannel(mChannel);
+        }
+    }
+
     public void login(View view) {
+
         String email = mEmailEdit.getText().toString();
         String password = mPasswordEdit.getText().toString();
       /* if (!InternetConnection.checkConnection(getApplicationContext())) {
@@ -88,7 +115,13 @@ public class loginActivity extends AppCompatActivity implements TextWatcher, Com
     }
 
     private void connexion(String email, String password) {
-        mAPIService.login(email, password).enqueue(new Callback<UserResponse>() {
+        sharedPreferences1 = getSharedPreferences(PREF_NAME1, Context.MODE_PRIVATE);
+        editor1 = sharedPreferences1.edit();
+        device_token=sharedPreferences1.getString(KEY_FCM,"");
+        if(device_token == null){
+            device_token="";
+        }
+        mAPIService.login(email, password,device_token).enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
 

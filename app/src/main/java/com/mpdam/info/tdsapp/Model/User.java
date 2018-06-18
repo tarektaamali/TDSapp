@@ -28,7 +28,26 @@ public class User {
     private String createdAt;
     @SerializedName("updated_at")
     @Expose
-    private String updatedAt;
+    private String updated_at;
+    @SerializedName("device_token")
+    @Expose
+    private String device_token;
+
+    public String getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(String updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public String getDevice_token() {
+        return device_token;
+    }
+
+    public void setDevice_token(String device_token) {
+        this.device_token = device_token;
+    }
 
     public Integer getId() {
         return id;
@@ -86,12 +105,5 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
 }

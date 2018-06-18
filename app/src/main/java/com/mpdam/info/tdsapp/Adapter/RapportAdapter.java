@@ -41,7 +41,7 @@ public class RapportAdapter extends RecyclerView.Adapter<RapportAdapter.ViewHold
          viewHolder.tv_version.setText(rapport.getProjets().getClient().getName().toString());
          viewHolder.tv_api_level.setText(rapport.getProjets().getAdresse().toString());
         Glide.with(c)
-                .load("http://192.168.42.98:8000/storage/blogimage/"+rapport.getImg().trim().toString())
+                .load("http://192.168.42.156:8000/storage/blogimage/"+rapport.getImg().trim().toString())
                 .thumbnail(0.5f)
                 .into(viewHolder.imgview);
         viewHolder.lin.setOnClickListener(new View.OnClickListener() {

@@ -40,6 +40,7 @@ public class SplashActivity extends AppCompatActivity{
 
         Toast.makeText(getApplicationContext(),token,Toast.LENGTH_SHORT).show();
         mAPIService = ApiUtils.getAPIService();
+        token=null;
       if(token == null){
           Intent i =new Intent(SplashActivity.this,loginActivity.class);
           startActivity(i);

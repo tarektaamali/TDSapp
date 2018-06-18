@@ -1,6 +1,9 @@
 package com.mpdam.info.tdsapp.remote;
 
+import com.mpdam.info.tdsapp.Model.EmployeResp;
+import com.mpdam.info.tdsapp.Model.MaterielResp;
 import com.mpdam.info.tdsapp.Model.ProjetResp;
+import com.mpdam.info.tdsapp.Model.Projetdetails;
 import com.mpdam.info.tdsapp.Model.RapportAll;
 import com.mpdam.info.tdsapp.Model.RapportMsg;
 import com.mpdam.info.tdsapp.Model.RapportResp;
@@ -31,7 +34,9 @@ public interface APIService {
     @POST("user/signin")
     @FormUrlEncoded
     Call<UserResponse>login(@Field("email")String email,
-                            @Field("password")String password);
+                            @Field("password")String password,
+                            @Field("device_token")String device_token
+    );
 
 
     @GET("user/logout")
@@ -58,6 +63,22 @@ public interface APIService {
     @GET("rapport/{id}")
     Call<RapportMsg>getRapportDetails(@Path("id") int id,
                                       @Query("token") String token);
+
+    @GET("employe/registration/{id}")
+    Call<EmployeResp>getProjet_employes(@Path("id") int id);
+    @GET("employe")
+    Call<EmployeResp> getallemployes();
+    @GET("materiel")
+    Call<MaterielResp> getallmateriel();
+
+    @GET("planning")
+    Call<ProjetResp> getplanning(@Query("token") String token,
+                            @Query("date") String date);
+
+
+    @GET("projet/{id}")
+    Call<Projetdetails> getprojetdetails(@Path("id") int id,
+                                         @Query("token") String token);
 
 }
 

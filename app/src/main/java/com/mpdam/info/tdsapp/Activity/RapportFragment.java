@@ -61,8 +61,8 @@ public class RapportFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //sharedPreferences = this.getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-      //token =sharedPreferences.getString(KEY_TOKEN,"");
+        sharedPreferences = this.getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+         token =sharedPreferences.getString(KEY_TOKEN,"");
         //Toast.makeText(getContext(),token,Toast.LENGTH_SHORT).show();
 
         //btn = (Button)view.findViewById(R.id.button);

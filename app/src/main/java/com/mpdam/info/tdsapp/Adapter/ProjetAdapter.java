@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mpdam.info.tdsapp.Activity.Main2Activity;
+import com.mpdam.info.tdsapp.Activity.ProjetDetailsActivity;
 import com.mpdam.info.tdsapp.Model.Projet;
 import com.mpdam.info.tdsapp.R;
 
@@ -38,7 +39,6 @@ public class ProjetAdapter extends RecyclerView.Adapter<ProjetAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
        // i++;
         final Projet projet = mArrayList.get(i);
-        String r= mArrayList.get(i).getTitre().toString();
          viewHolder.tv_name.setText(projet.getService().getTitre().toString());
         viewHolder.tv_version.setText(projet.getTitre().toString());
           viewHolder.tv_api_level.setText(projet.getClient().getName().toString());
@@ -46,7 +46,7 @@ public class ProjetAdapter extends RecyclerView.Adapter<ProjetAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 Toast.makeText(c,projet.getId().toString(),Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(v.getContext(), Main2Activity.class);
+                Intent intent=new Intent(v.getContext(), ProjetDetailsActivity.class);
                 v.getContext().startActivity(intent);
             }
         });

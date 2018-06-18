@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".Activity.MyApp"
@@ -36,13 +37,24 @@
         <activity android:name=".Activity.Main2Activity" />
         <activity android:name=".Activity.RapportActivity" />
         <activity
-            android:name=".LoginActivity1"
-            android:label="@string/title_activity_login1" />
-        <activity android:name=".Activity.ViewRapportActivity" />
-        <activity
             android:name=".Activity.RapportScrollingActivity"
             android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.ProjetDetailsActivity" />
+        <activity android:name=".Activity.P_EmployesActivity" />
+
+        <service android:name=".firebase.MyFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".firebase.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".Activity.DetailsActivity"></activity>
     </application>
 
 </manifest>

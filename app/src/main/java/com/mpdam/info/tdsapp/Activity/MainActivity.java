@@ -126,25 +126,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void logout(String token) {
-        mAPIService.logout(token).enqueue(new Callback<Token>() {
-            @Override
-            public void onResponse(Call<Token> call, Response<Token> response) {
-                if(response.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),response.body().getMessage().toString(),Toast.LENGTH_SHORT).show();
-                    Intent i=new Intent(MainActivity.this,loginActivity.class);
-                    startActivity(i);
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<Token> call, Throwable t) {
-
-            }
-        });
-
-    }
 
     private void displaySelectedScreen(int itemId) {
 
@@ -188,4 +169,24 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
+    private void logout(String token) {
+        mAPIService.logout(token).enqueue(new Callback<Token>() {
+            @Override
+            public void onResponse(Call<Token> call, Response<Token> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(getApplicationContext(),response.body().getMessage().toString(),Toast.LENGTH_SHORT).show();
+                    Intent i=new Intent(MainActivity.this,loginActivity.class);
+                    startActivity(i);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Token> call, Throwable t) {
+
+            }
+        });
+
+    }
+
 }

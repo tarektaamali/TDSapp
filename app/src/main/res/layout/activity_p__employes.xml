@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mpdam.info.tdsapp.Activity.ProjetFragment">
+    tools:context="com.mpdam.info.tdsapp.Activity.P_EmployesActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/card_recycler_view"
