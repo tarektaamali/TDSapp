@@ -8,47 +8,46 @@ public class User {
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("name")
+    @SerializedName("prenom")
     @Expose
-    private String name;
+    private String prenom;
+    @SerializedName("nom")
+    @Expose
+    private String nom;
     @SerializedName("email")
     @Expose
     private String email;
-    @SerializedName("phone")
+    @SerializedName("societe")
     @Expose
-    private Object phone;
-    @SerializedName("status")
+    private String societe;
+    @SerializedName("telephone")
     @Expose
-    private Integer status;
+    private String telephone;
+
     @SerializedName("role")
     @Expose
     private String role;
+    @SerializedName("adresse")
+    @Expose
+    private String adresse;
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("device_token")
+    @Expose
+    private String deviceToken;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
     @SerializedName("updated_at")
     @Expose
-    private String updated_at;
-    @SerializedName("device_token")
+    private String updatedAt;
+    @SerializedName("star")
     @Expose
-    private String device_token;
-
-    public String getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(String updated_at) {
-        this.updated_at = updated_at;
-    }
-
-    public String getDevice_token() {
-        return device_token;
-    }
-
-    public void setDevice_token(String device_token) {
-        this.device_token = device_token;
-    }
-
+    private float avis;
+    @SerializedName("count")
+    @Expose
+    private int nbre_projet;
     public Integer getId() {
         return id;
     }
@@ -57,12 +56,20 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getPrenom() {
+        return prenom;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getEmail() {
@@ -73,20 +80,12 @@ public class User {
         this.email = email;
     }
 
-    public Object getPhone() {
-        return phone;
+    public String getSociete() {
+        return societe;
     }
 
-    public void setPhone(Object phone) {
-        this.phone = phone;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setSociete(String societe) {
+        this.societe = societe;
     }
 
     public String getRole() {
@@ -97,6 +96,30 @@ public class User {
         this.role = role;
     }
 
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
+    }
+
     public String getCreatedAt() {
         return createdAt;
     }
@@ -105,5 +128,34 @@ public class User {
         this.createdAt = createdAt;
     }
 
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
 
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public float getAvis() {
+        return avis;
+    }
+
+    public void setAvis(float avis) {
+        this.avis = avis;
+    }
+
+    public int getNbre_projet() {
+        return nbre_projet;
+    }
+
+    public void setNbre_projet(int nbre_projet) {
+        this.nbre_projet = nbre_projet;
+    }
 }

@@ -13,7 +13,7 @@
     <application
         android:name=".Activity.MyApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -23,7 +23,6 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -40,8 +39,10 @@
             android:name=".Activity.RapportScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.ProjetDetailsActivity" />
-        <activity android:name=".Activity.P_EmployesActivity" />
+        <activity android:name=".Activity.P_DemandeurActivity" />
+        <activity android:name=".Activity.PropositionActivity" />
+        <activity android:name=".Activity.RapportDetailsActivity" />
+        <activity android:name=".Activity.InscriptionActivity" />
 
         <service android:name=".firebase.MyFirebaseInstanceIdService">
             <intent-filter>
@@ -54,7 +55,26 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".Activity.DetailsActivity"></activity>
+        <activity android:name=".Activity.DetailsActivity" />
+        <activity
+            android:name=".Activity.Demandeur.DemandeurActivity"
+            android:label="Traveaux"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.Demandeur.Main3Activity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.Demandeur.Main4Activity" />
+        <activity android:name=".Activity.Demandeur.TrouverActivity" />
+        <activity android:name=".Activity.Demandeur.MonProjetActivity" />
+        <activity android:name=".Activity.Demandeur.Voir_projet_Activity" />
+        <activity android:name=".Activity.Demandeur.Mon_projet_devis" />
+        <activity android:name=".Activity.Demandeur.devisDetailsActivity" />
+        <activity android:name=".Activity.Demandeur.DetailsProjetActivity" />
+        <activity
+            android:name=".Activity.Demandeur.fournisseur.Main5Activity"
+            android:label="@string/title_activity_main5"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

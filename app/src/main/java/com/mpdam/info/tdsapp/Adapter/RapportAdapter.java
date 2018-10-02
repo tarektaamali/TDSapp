@@ -38,8 +38,8 @@ public class RapportAdapter extends RecyclerView.Adapter<RapportAdapter.ViewHold
         final Rapport rapport = mArrayList.get(i);
         //String r= mArrayList.get(i).getTitre().toString();
         viewHolder.tv_name.setText(rapport.getTitle().toString());
-         viewHolder.tv_version.setText(rapport.getProjets().getClient().getName().toString());
-         viewHolder.tv_api_level.setText(rapport.getProjets().getAdresse().toString());
+         /*viewHolder.tv_version.setText(rapport.getProjets().getUser().getPrenom().toString());
+         viewHolder.tv_api_level.setText(rapport.getProjets().getLieu().toString());
         Glide.with(c)
                 .load("http://192.168.42.156:8000/storage/blogimage/"+rapport.getImg().trim().toString())
                 .thumbnail(0.5f)
@@ -53,7 +53,7 @@ public class RapportAdapter extends RecyclerView.Adapter<RapportAdapter.ViewHold
                 i.putExtra("id",rapport.getId());
                 v.getContext().startActivity(i);
             }
-        });
+        });*/
     }
 
     @Override

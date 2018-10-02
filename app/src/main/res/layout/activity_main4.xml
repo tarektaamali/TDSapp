@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mpdam.info.tdsapp.Activity.Demandeur.Main4Activity">
+    <TextView
+        android:id="@+id/section_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vous avez des travaux à réaliser ?"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:layout_marginRight="7sp"
+        android:layout_marginLeft="7sp"
+        android:layout_marginTop="60sp"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_marginTop="30sp"
+        android:id="@+id/textView4"
+        android:textSize="25sp"
+        android:layout_width="match_parent"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Avec OneClick service Trouvez en  un artisan qualifié près de chez vous !" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="match_parent"
+        android:layout_marginRight="15sp"
+        android:layout_marginLeft="15sp"
+        android:layout_height="wrap_content"
+        android:paddingEnd="10dp"
+        android:text="Trouver"
+        android:layout_marginTop="30sp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:background="@color/colorAccent"/>
+    <Button
+        android:id="@+id/btnvoir"
+        android:layout_width="match_parent"
+        android:layout_marginRight="15sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="40sp"
+        android:layout_height="wrap_content"
+        android:paddingEnd="10dp"
+        android:text="Voir Votre projet"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:onClick="Voir_mon_projet"
+        android:background="@color/colorAccent"/>
+</LinearLayout>

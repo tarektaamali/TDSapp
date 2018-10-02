@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mpdam.info.tdsapp.Activity.ProjetDetailsActivity"
+    tools:context="com.mpdam.info.tdsapp.Activity.ProjetDetailsFragment"
     android:orientation="vertical"
     android:padding="10dp"
     android:background="@null"
@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Materiels"
+                    android:text="Demandeur details"
                     android:textStyle="bold" />
 
                 <View
@@ -145,7 +145,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Employes"
+                    android:text="Proposition Details"
                     android:textStyle="bold" />
 
                 <View

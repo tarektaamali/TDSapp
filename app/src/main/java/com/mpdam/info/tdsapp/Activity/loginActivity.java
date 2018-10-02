@@ -11,30 +11,30 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.mpdam.info.tdsapp.Model.User;
+import com.mpdam.info.tdsapp.Activity.Demandeur.Main3Activity;
+import com.mpdam.info.tdsapp.Activity.Demandeur.Main4Activity;
 import com.mpdam.info.tdsapp.Model.UserResponse;
 import com.mpdam.info.tdsapp.R;
 import com.mpdam.info.tdsapp.firebase.Constants;
-import com.mpdam.info.tdsapp.internet.InternetConnection;
 import com.mpdam.info.tdsapp.remote.APIService;
 import com.mpdam.info.tdsapp.remote.ApiUtils;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class loginActivity extends AppCompatActivity implements TextWatcher, CompoundButton.OnCheckedChangeListener {
     private EditText mPasswordEdit;
-    private View mProgressView;
-    private View mLoginFormView;
     private EditText mEmailEdit;
     private CheckBox rem_userpass;
+    private Button btn ;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     private APIService mAPIService;
@@ -47,15 +47,19 @@ public class loginActivity extends AppCompatActivity implements TextWatcher, Com
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASS = "password";
     private static final String KEY_TOKEN= "token";
+    private static final String KEY_USER= "user";
+    private static final String KEY_ROLE= "role";
+    private static final String KAY_EMAIL= "email";
     private static final String TAG ="" ;
     String device_token;
-    private   String token="";
+    private   String token="",user="",email1="",role="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mEmailEdit=(EditText)findViewById(R.id.email);
         mPasswordEdit=(EditText)findViewById(R.id.password);
+        btn=(Button)findViewById(R.id.btn_login);
         sharedPreferences1 = getSharedPreferences(PREF_NAME1, Context.MODE_PRIVATE);
         sharedPreferences = getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE);
         editor1 = sharedPreferences1.edit();
@@ -108,68 +112,79 @@ public class loginActivity extends AppCompatActivity implements TextWatcher, Com
             }
             else {
                 connexion(email,password);
+                btn.setEnabled(false);
+              //  mProgressView.setVisibility(View.VISIBLE);
+
+                //mLoginFormView.setVisibility(View.INVISIBLE);
 
 
 
             }
     }
 
-    private void connexion(String email, String password) {
+    private void connexion(final String email, String password) {
         sharedPreferences1 = getSharedPreferences(PREF_NAME1, Context.MODE_PRIVATE);
         editor1 = sharedPreferences1.edit();
         device_token=sharedPreferences1.getString(KEY_FCM,"");
-        if(device_token == null){
-            device_token="";
-        }
-        mAPIService.login(email, password,device_token).enqueue(new Callback<UserResponse>() {
+
+        mAPIService.login(email, password).enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-
+               String role ;
                 if(response.isSuccessful()) {
 
-                    if(response.body().getMessage().equals("User signin"))
-                    Toast.makeText(getApplicationContext(),response.body().getToken().toString(),Toast.LENGTH_SHORT).show();
-                     token=response.body().getToken().toString();
+                    if(response.body().getMessage().equals("User signin")){
+                      //  mProgressView.setVisibility(View.INVISIBLE);
+                    Toast.makeText(getApplicationContext(),response.body().getToken(),Toast.LENGTH_SHORT).show();
+                     token=response.body().getToken();
+                     user=response.body().getUser().getPrenom();
+                        role=response.body().getUser().getRole();
+                     email1=response.body().getUser().getEmail();
+                        role=response.body().getUser().getRole().trim();
+
                     managePrefs();
-                    Intent intent = new Intent(loginActivity.this, MainActivity.class);
-                    managePrefs();
-                    intent.putExtra("token",response.body().getToken().toString());
-                    intent.putExtra("user",response.body().getUser().getEmail().toString());
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                   //Intent intent = new Intent(loginActivity.this, DemandeurActivity.class);
+                        Intent intent;
+                        if(role.equals("fournisseur")) {
+                            intent = new Intent(loginActivity.this, MainActivity.class);
+                        }else {
+                             intent = new Intent(loginActivity.this, Main3Activity.class);
+                        }
+                        managePrefs();
+                    intent.putExtra("token",response.body().getToken());
+                    intent.putExtra("user",response.body().getUser().getEmail());
+                   // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(intent);
-                    finish();
-                  /*  if(response.body().getUserId()==0){
-                        Toast.makeText(getApplicationContext(),"succes        s",Toast.LENGTH_SHORT).show();
-						/*
-						  Intent i =new Intent(MainActivity.this,Main2Activity.class);
-                        i.putExtra("id",response.body().getResults().toString());
-                        startActivity(i);
-
-
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
-                    }*/
+                        finish();
                 }
-                else
-                    Toast.makeText(getApplicationContext(),"error",Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getApplicationContext(),"An error occurred",Toast.LENGTH_SHORT).show();
+
+                }else
+                    Toast.makeText(getApplicationContext(),"An error occurred",Toast.LENGTH_SHORT).show();
+
+
+                btn.setEnabled(true);
 
             }
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
                 Log.e(TAG, "failed.");
+                Toast.makeText(getApplicationContext(),R.string.internet,Toast.LENGTH_SHORT).show();
+                btn.setEnabled(true);
+
             }
         });
 
 
     }
 
-    private boolean isEmailValid(String email) {
+    static boolean isEmailValid(String email) {
         return email.contains("@");
     }
 
-    private boolean isPasswordValid(String password) {
+    static boolean isPasswordValid(String password) {
         return password.length() > 6;
     }
 
@@ -196,15 +211,34 @@ public class loginActivity extends AppCompatActivity implements TextWatcher, Com
         if(rem_userpass.isChecked()){
             editor.putString(KEY_USERNAME, mEmailEdit.getText().toString().trim());
             editor.putString(KEY_PASS, mPasswordEdit.getText().toString().trim());
-            editor.putString(KEY_TOKEN,token);
             editor.putBoolean(KEY_REMEMBER, true);
-            editor.apply();
+
         }else{
             editor.putBoolean(KEY_REMEMBER, false);
             editor.remove(KEY_PASS);//editor.putString(KEY_PASS,"");
             editor.remove(KEY_USERNAME);//editor.putString(KEY_USERNAME, "");
-            editor.putString(KEY_TOKEN,token);
-            editor.apply();
+
         }
+        editor.putString(KEY_TOKEN,token);
+        editor.putString(KEY_USER,user);
+        editor.putString(KEY_ROLE,role);
+        editor.putString(KAY_EMAIL,email1);
+        editor.apply();
+    }
+
+    public void inscrit(View view) {
+        Intent i=new Intent(loginActivity.this,InscriptionActivity.class);
+        startActivity(i);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent = new Intent(loginActivity.this,
+                    SplashActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("EXIT", true);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

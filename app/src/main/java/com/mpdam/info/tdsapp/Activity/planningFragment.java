@@ -2,37 +2,31 @@ package com.mpdam.info.tdsapp.Activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-import com.mpdam.info.tdsapp.Adapter.ProjetAdapter;
-import com.mpdam.info.tdsapp.Model.Projet;
-import com.mpdam.info.tdsapp.Model.ProjetResp;
-import com.mpdam.info.tdsapp.R;
-import com.mpdam.info.tdsapp.remote.APIService;
-import com.mpdam.info.tdsapp.remote.ApiUtils;
 
-import java.util.ArrayList;
+import com.mpdam.info.tdsapp.Adapter.PlanningAdapter;
+import com.mpdam.info.tdsapp.Model.PlanningResp;
+import com.mpdam.info.tdsapp.R;
+
 import java.util.Calendar;
+
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.mpdam.info.tdsapp.Activity.MainActivity.mAPIService;
+
 
 public class planningFragment extends Fragment {
-//    private CalendarView mCalendarView;
-  //  private List<EventDay> mEventDays = new ArrayList<>();
 
     private static final String PREF_NAME = "prefs";
     private static final String KEY_REMEMBER = "remember";
@@ -40,11 +34,9 @@ public class planningFragment extends Fragment {
     private static final String KEY_PASS = "password";
     private static final String KEY_TOKEN= "token";
     private RecyclerView recyclerView;
-    private ArrayList<Projet> data;
-    private ProjetAdapter adapter;
+    private PlanningAdapter adapter;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    private APIService mAPIService;
     String token;
     String user;
     public static planningFragment newInstance()
@@ -72,25 +64,25 @@ public class planningFragment extends Fragment {
 /* ends after 1 month from now */
         Calendar endDate = Calendar.getInstance();
         endDate.add(Calendar.MONTH, 1);
-        getActivity().setTitle("Planning");
+        getActivity().setTitle(getString(R.string.planning));
         HorizontalCalendar horizontalCalendar = new HorizontalCalendar.Builder(view, R.id.calendarView)
                 .range(startDate, endDate)
                 .datesNumberOnScreen(5)
                 .build();
-        recyclerView = (RecyclerView) view.findViewById(R.id.card_plannig);
+        recyclerView = view.findViewById(R.id.card_plannig);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         recyclerView.setLayoutManager(layoutManager);
         Calendar date=Calendar.getInstance();
-        String date2=date.get(Calendar.YEAR)+"-"+(1+date.get(date.MONTH))+"-"+(date.get(Calendar.DAY_OF_MONTH));
+        String date2=date.get(Calendar.YEAR)+"-"+(1+date.get(Calendar.MONTH))+"-"+(date.get(Calendar.DAY_OF_MONTH));
         recyclerView.setHasFixedSize(true);
-        mAPIService = ApiUtils.getAPIService();
+        //mAPIService = ApiUtils.getAPIService();
         loadJson(token,date2);
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
-                String date2=date.get(Calendar.YEAR)+"-"+(1+date.get(date.MONTH))+"-"+(date.get(Calendar.DAY_OF_MONTH));
+                String date2=date.get(Calendar.YEAR)+"-"+(1+date.get(Calendar.MONTH))+"-"+(date.get(Calendar.DAY_OF_MONTH));
 
-              loadJson(token,date2);
+            loadJson(token,date2);
             }
 
         });
@@ -99,17 +91,17 @@ public class planningFragment extends Fragment {
     }
 
     private void loadJson(String token, String s) {
-        mAPIService.getplanning(token,s).enqueue(new Callback<ProjetResp>() {
+        mAPIService.getplanning(token,s).enqueue(new Callback<PlanningResp>() {
             @Override
-            public void onResponse(Call<ProjetResp> call, Response<ProjetResp> response) {
-                ProjetResp projetResp=response.body();
-                adapter = new ProjetAdapter(getActivity().getBaseContext(),projetResp.getProjets());
+            public void onResponse(Call<PlanningResp> call, Response<PlanningResp> response) {
+                PlanningResp planningResp=response.body();
+                adapter = new PlanningAdapter(getActivity().getBaseContext(),planningResp.getPlanning());
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<ProjetResp> call, Throwable t) {
+            public void onFailure(Call<PlanningResp> call, Throwable t) {
 
             }
         });

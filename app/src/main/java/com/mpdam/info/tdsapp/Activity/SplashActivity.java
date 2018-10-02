@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.mpdam.info.tdsapp.Activity.Demandeur.Main3Activity;
+import com.mpdam.info.tdsapp.Activity.Demandeur.Main4Activity;
 import com.mpdam.info.tdsapp.Model.Token;
 import com.mpdam.info.tdsapp.remote.APIService;
 import com.mpdam.info.tdsapp.remote.ApiUtils;
@@ -29,18 +31,23 @@ public class SplashActivity extends AppCompatActivity{
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASS = "password";
     private static final String KEY_TOKEN= "token";
-    String token;
-    String user;
+    private static final String KEY_ROLE= "role";
+
+    String token,user,role;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         token =sharedPreferences.getString(KEY_TOKEN,"");
         user =sharedPreferences.getString(KEY_USERNAME,"");
-
+        role =sharedPreferences.getString(KEY_ROLE,"");
         Toast.makeText(getApplicationContext(),token,Toast.LENGTH_SHORT).show();
         mAPIService = ApiUtils.getAPIService();
-        token=null;
+        if (getIntent().getBooleanExtra("EXIT", false))
+        {
+            SplashActivity.this.finish();
+            return;
+        }
       if(token == null){
           Intent i =new Intent(SplashActivity.this,loginActivity.class);
           startActivity(i);
@@ -59,8 +66,13 @@ public class SplashActivity extends AppCompatActivity{
 
            if(response.isSuccessful()){
                Toast.makeText(SplashActivity.this,response.body().getMessage(), Toast.LENGTH_SHORT).show();
-               if(response.body().getSuccess()==true){
-                   Intent i =new Intent(SplashActivity.this,MainActivity.class);
+               if(response.body().getSuccess()){
+                   Intent i ;
+                   if(role.equals("fournisseur")) {
+                      i= new Intent(SplashActivity.this, MainActivity.class);
+                   }else{
+                       i= new Intent(SplashActivity.this, Main3Activity.class);
+                   }
                    i.putExtra("token",token1);
                    i.putExtra("user",user);
                    startActivity(i);

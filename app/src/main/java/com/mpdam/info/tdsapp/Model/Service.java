@@ -4,23 +4,23 @@ package com.mpdam.info.tdsapp.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Service {
 
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("titre")
+    @SerializedName("libelle")
     @Expose
-    private String titre;
-    @SerializedName("description")
-    @Expose
-    private String description;
+    private String libelle;
     @SerializedName("created_at")
     @Expose
-    private Object createdAt;
+    private String createdAt;
     @SerializedName("updated_at")
     @Expose
-    private Object updatedAt;
+    private String updatedAt;
 
     public Integer getId() {
         return id;
@@ -30,36 +30,26 @@ public class Service {
         this.id = id;
     }
 
-    public String getTitre() {
-        return titre;
+    public String getLibelle() {
+        return libelle;
     }
 
-    public void setTitre(String titre) {
-        this.titre = titre;
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Object getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Object createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Object getUpdatedAt() {
+    public String getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Object updatedAt) {
+    public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-}
+    }}

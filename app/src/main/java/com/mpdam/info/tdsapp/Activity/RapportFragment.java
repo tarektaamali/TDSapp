@@ -100,6 +100,7 @@ public class RapportFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RapportAll> call, Throwable t) {
+                Toast.makeText(getContext(),getResources().getString(R.string.internet),Toast.LENGTH_LONG).show();
 
             }
         });

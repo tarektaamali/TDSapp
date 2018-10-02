@@ -1,47 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
-            android:icon="@android:drawable/ic_menu_my_calendar"
-            android:title="Planning" />
+            android:icon="@drawable/ic_even"
+            android:title="@string/planning" />
         <item
             android:id="@+id/nav_projet"
             android:icon="@mipmap/ic_hourglass_empty_black_24dp"
-            android:title="Projet non validée " />
+             android:title="@string/Demandes" />
         <item
             android:id="@+id/nav_projet_v"
-            android:icon="@mipmap/ic_hourglass_full_black_24dp"
-            android:title="Projet " />
+            android:icon="@drawable/ic_"
+            android:title="@string/Projetenc"/>
         <item
             android:id="@+id/nav_projet_en"
             android:icon="@mipmap/ic_hourglass_full_black_24dp"
-            android:title="Projet En realisations " />
+            android:title="@string/Pv" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_group_work_black_24dp"
-            android:title="Equipe" />
+            android:icon="@mipmap/ic_hourglass_full_black_24dp"
+            android:title="@string/Pt" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_note_add_black_24dp"
-            android:title="Rapport" />
+            android:title="@string/dv" />
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Materiels" />
+            android:icon="@drawable/ic_feedback"
+            android:title="@string/Fd" />
     </group>
 
     <item android:title="Communicate">
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:icon="@drawable/ic_notifications_black_24dp"
-                android:title="Notification" />
+                android:icon="@drawable/ic_menu_manage"
+                android:title="@string/setting" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_lock_black_24dp"
-                android:title="logout" />
+                android:title="@string/logout" />
         </menu>
     </item>
 

@@ -1,6 +1,7 @@
 
 package com.mpdam.info.tdsapp.Model;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,21 +10,15 @@ public class Projet {
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("titre")
+    @SerializedName("objet")
     @Expose
-    private String titre;
-    @SerializedName("adresse")
+    private String objet;
+    @SerializedName("lieu")
     @Expose
-    private String adresse;
+    private String lieu;
     @SerializedName("description")
     @Expose
     private String description;
-    @SerializedName("start_date")
-    @Expose
-    private Object startDate;
-    @SerializedName("end_date")
-    @Expose
-    private Object endDate;
     @SerializedName("etat_id")
     @Expose
     private Integer etatId;
@@ -33,9 +28,12 @@ public class Projet {
     @SerializedName("user_id")
     @Expose
     private Integer userId;
-    @SerializedName("admin_id")
+    @SerializedName("region_id")
     @Expose
-    private Integer adminId;
+    private Integer regionId;
+    @SerializedName("realisateur_id")
+    @Expose
+    private Integer realisateurId;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -45,9 +43,21 @@ public class Projet {
     @SerializedName("service")
     @Expose
     private Service service;
-    @SerializedName("client")
+    @SerializedName("region")
     @Expose
-    private Client client;
+    private Region region;
+    @SerializedName("etat")
+    @Expose
+    private Etat etat;
+    @SerializedName("user")
+    @Expose
+    private User user;
+    @SerializedName("fournisseur")
+    @Expose
+    private Object fournisseur;
+    @SerializedName("propositions")
+    @Expose
+    private List<Planning> propositions = null;
 
     public Integer getId() {
         return id;
@@ -57,20 +67,20 @@ public class Projet {
         this.id = id;
     }
 
-    public String getTitre() {
-        return titre;
+    public String getObjet() {
+        return objet;
     }
 
-    public void setTitre(String titre) {
-        this.titre = titre;
+    public void setObjet(String objet) {
+        this.objet = objet;
     }
 
-    public String getAdresse() {
-        return adresse;
+    public String getLieu() {
+        return lieu;
     }
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
     }
 
     public String getDescription() {
@@ -79,22 +89,6 @@ public class Projet {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Object getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Object startDate) {
-        this.startDate = startDate;
-    }
-
-    public Object getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Object endDate) {
-        this.endDate = endDate;
     }
 
     public Integer getEtatId() {
@@ -121,12 +115,20 @@ public class Projet {
         this.userId = userId;
     }
 
-    public Integer getAdminId() {
-        return adminId;
+    public Integer getRegionId() {
+        return regionId;
     }
 
-    public void setAdminId(Integer adminId) {
-        this.adminId = adminId;
+    public void setRegionId(Integer regionId) {
+        this.regionId = regionId;
+    }
+
+    public Integer getRealisateurId() {
+        return realisateurId;
+    }
+
+    public void setRealisateurId(Integer realisateurId) {
+        this.realisateurId = realisateurId;
     }
 
     public String getCreatedAt() {
@@ -153,12 +155,44 @@ public class Projet {
         this.service = service;
     }
 
-    public Client getClient() {
-        return client;
+    public Region getRegion() {
+        return region;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public Etat getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Etat etat) {
+        this.etat = etat;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Object getFournisseur() {
+        return fournisseur;
+    }
+
+    public void setFournisseur(Object fournisseur) {
+        this.fournisseur = fournisseur;
+    }
+
+    public List<Planning> getPropositions() {
+        return propositions;
+    }
+
+    public void setPropositions(List<Planning> propositions) {
+        this.propositions = propositions;
     }
 
 }

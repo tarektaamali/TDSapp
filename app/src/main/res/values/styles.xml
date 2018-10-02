@@ -31,4 +31,10 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#ffffff</item>
     </style>
+
+    <style name="MyRaidoButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="colorAccent">#0091ea</item>
+        <item name="android:textColorPrimaryDisableOnly">@color/colorAccent</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
+    </style>
 </resources>
