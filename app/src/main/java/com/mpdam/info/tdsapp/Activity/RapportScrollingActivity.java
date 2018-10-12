@@ -17,16 +17,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mpdam.info.tdsapp.Model.RapportMsg;
 import com.mpdam.info.tdsapp.R;
 import com.mpdam.info.tdsapp.remote.APIService;
 import com.mpdam.info.tdsapp.remote.ApiUtils;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.mpdam.info.tdsapp.remote.ApiUtils.BASE_URL1;
 
 public class RapportScrollingActivity extends AppCompatActivity {
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
@@ -40,6 +45,10 @@ public class RapportScrollingActivity extends AppCompatActivity {
     private static final String KEY_TOKEN= "token";
     private TextView rapportdesc,projetdesc,clientname;
     private ImageView img;
+    int[] sampleImages = {R.drawable.ic_, R.drawable.ic_, R.drawable.ic_};
+    String[] SampleImage;
+    String [] photos;
+    CarouselView carouselView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,13 +57,22 @@ public class RapportScrollingActivity extends AppCompatActivity {
         String token =sharedPreferences.getString(KEY_TOKEN,"");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         rapportdesc=(TextView)findViewById(R.id.rapportcontent);
-        img=(ImageView)findViewById(R.id.imageView2);
+      //  img=(ImageView)findViewById(R.id.imageView2);
+        carouselView = (CarouselView) findViewById(R.id.carouselView);
+        carouselView.setPageCount(2);
+
+        // carouselView.setPageCount(1);
+        //carouselView.setImageListener(imageListener);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         Intent intent=getIntent();
         Bundle b =intent.getExtras();
         int id=b.getInt("id");
+        int size=b.getInt("size");
+        photos=b.getStringArray("photos");
+        carouselView.setPageCount(size);
+        carouselView.setImageListener(imageListener);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle(getResources().getString(R.string.user_name));
    dynamicToolbarColor();
@@ -70,10 +88,14 @@ public class RapportScrollingActivity extends AppCompatActivity {
             public void onResponse(Call<RapportMsg> call, Response<RapportMsg> response) {
                 if(response.isSuccessful()){
                     rapportdesc.setText(response.body().getRapport().getNote().toString());
+                    int x =response.body().getRapport().getImages().size();
+                    SampleImage=new String[x];
 
-                  Glide.with(getApplicationContext())
+
+                    Toast.makeText(RapportScrollingActivity.this, response.body().getRapport().getTitle(), Toast.LENGTH_SHORT).show();
+                /*  Glide.with(getApplicationContext())
                           .load("http://192.168.42.98:8000/storage/blogimage/"+response.body().getRapport().getImg().trim().toString())
-                            .into(img);
+                            .into(img);*/
                 }
             }
 
@@ -107,5 +129,21 @@ public class RapportScrollingActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+    ImageListener imageListener = new ImageListener() {
+        @Override
+        public void setImageForPosition(int position, ImageView imageView) {
+           // imageView.setImageResource(sampleImages[position]);
+           if (  photos.length > 0) {
+                Glide.with(getApplicationContext()).
+                        load(photos[position])
+                        .error(R.drawable.ic_add)
+                        .into(imageView);
+            } else
+                imageView.setImageResource(R.drawable.ic_add);
+        }
+
+
+    };
+
 
 }

@@ -131,10 +131,20 @@ public interface APIService {
                              @Part MultipartBody.Part file);
 
 
+    @POST("proposition")
+    @FormUrlEncoded
+    Call<devisUpdate>proposez(@Query("token") String token,
+                              @Field("description") String  description,
+                              @Field("echenance") String  echenance,
+                              @Field("devis") String  devis,
+                              @Field("start_date") String  start_date,
+                              @Field("projet_id") int projet_id
+                              );
+
     @GET("rapport")
     Call<RapportAll> getrapports(@Query("token") String token);
 
-    @GET("rapport/{id}")
+    @GET("drapport/{id}")
     Call<RapportMsg>getRapportDetails(@Path("id") int id,
                                       @Query("token") String token);
 

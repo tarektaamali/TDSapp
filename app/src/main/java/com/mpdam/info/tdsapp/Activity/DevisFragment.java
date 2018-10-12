@@ -62,6 +62,7 @@ public class DevisFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
       sharedPreferences = this.getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
        token =sharedPreferences.getString(KEY_TOKEN,"");
+        getActivity().setTitle("Devis proposez");
 
         recyclerView = (RecyclerView) view.findViewById(R.id.card_recycler_view);
         recyclerView.setHasFixedSize(true);

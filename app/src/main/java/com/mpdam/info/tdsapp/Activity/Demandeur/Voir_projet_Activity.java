@@ -103,17 +103,17 @@ public class Voir_projet_Activity extends AppCompatActivity {
         });
         floatingActionButton3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(realisateur==0){
+             /*   if(realisateur==0){
                     Toast.makeText(getApplicationContext(), "Aucun fournisseur selectionnez pour cette projet", Toast.LENGTH_LONG).show();
                 }
-                else {
+                else {*/
                     Voir_projet_Activity.this.getSupportActionBar().setTitle("Envoyez Feedback");
                     Toast.makeText(getApplicationContext(), "Feedback", Toast.LENGTH_LONG).show();
                     Fragment myFragment = new FeedbackFragment();
                     Bundle bundle = new Bundle();
                     myFragment.setArguments(bundle);
                     getSupportFragmentManager().beginTransaction().replace(R.id.linear, myFragment).addToBackStack(null).commit();
-                }
+               // }
 
             }
         });

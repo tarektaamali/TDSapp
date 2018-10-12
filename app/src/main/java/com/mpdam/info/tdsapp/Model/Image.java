@@ -1,39 +1,25 @@
-
 package com.mpdam.info.tdsapp.Model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-public class Rapport {
+public class Image {
 
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("title")
-    @Expose
-    private String title;
-    @SerializedName("note")
-    @Expose
-    private String note;
     @SerializedName("img")
     @Expose
     private String img;
-    @SerializedName("projet_id")
+    @SerializedName("rapport_id")
     @Expose
-    private Integer projetId;
+    private Integer rapportId;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
-    @SerializedName("images")
-    @Expose
-    private List<Image> images = null;
 
     public Integer getId() {
         return id;
@@ -41,22 +27,6 @@ public class Rapport {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
     }
 
     public String getImg() {
@@ -67,12 +37,12 @@ public class Rapport {
         this.img = img;
     }
 
-    public Integer getProjetId() {
-        return projetId;
+    public Integer getRapportId() {
+        return rapportId;
     }
 
-    public void setProjetId(Integer projetId) {
-        this.projetId = projetId;
+    public void setRapportId(Integer rapportId) {
+        this.rapportId = rapportId;
     }
 
     public String getCreatedAt() {
@@ -89,14 +59,6 @@ public class Rapport {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public List<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
     }
 
 }

@@ -191,9 +191,6 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_manage:
                 fragment = new FeedbackFragment();
                 break;
-            case R.id.nav_slideshow:
-                fragment = new DevisFragment();
-                break;
             case R.id.nav_share:
                 fragment = new MainFragment();
                 break;

@@ -16,10 +16,12 @@ import com.mpdam.info.tdsapp.R;
 
 import java.util.List;
 
+import static com.mpdam.info.tdsapp.remote.ApiUtils.BASE_URL1;
+
 public class RapportAdapter extends RecyclerView.Adapter<RapportAdapter.ViewHolder> {
     private List<Rapport> mArrayList;
     Context c;
-
+    String[] photos;
     public RapportAdapter(Context ctx,List<Rapport> arrayList) {
         this.c=ctx;
         this.mArrayList = arrayList;
@@ -36,6 +38,7 @@ public class RapportAdapter extends RecyclerView.Adapter<RapportAdapter.ViewHold
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         // i++;
         final Rapport rapport = mArrayList.get(i);
+
         //String r= mArrayList.get(i).getTitre().toString();
         viewHolder.tv_name.setText(rapport.getTitle().toString());
          /*viewHolder.tv_version.setText(rapport.getProjets().getUser().getPrenom().toString());
@@ -43,17 +46,37 @@ public class RapportAdapter extends RecyclerView.Adapter<RapportAdapter.ViewHold
         Glide.with(c)
                 .load("http://192.168.42.156:8000/storage/blogimage/"+rapport.getImg().trim().toString())
                 .thumbnail(0.5f)
-                .into(viewHolder.imgview);
+                .into(viewHolder.imgview);*/
+       /*
+        int numerImages =rapport.getImages().size();
+        String[] photos=new String[numerImages];
+        if(numerImages>0){
+            for (int y=0;y<numerImages;y++){
+                photos[y]=BASE_URL1+"upload/"+images.get(y).getSrc();
+            }
+
+       */
+
+
+
         viewHolder.lin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(c,rapport.getId().toString(),Toast.LENGTH_SHORT).show();
-
+                final int numerImages =rapport.getImages().size();
+                photos=new String[numerImages];
+                if(numerImages>0) {
+                    for (int y = 0; y < numerImages; y++) {
+                        photos[y] = BASE_URL1 +"/storage/blogimage/" + rapport.getImages().get(y).getImg();
+                    }
+                }
                 Intent i =new Intent(v.getContext(), RapportScrollingActivity.class);
                 i.putExtra("id",rapport.getId());
+                i.putExtra("size",numerImages);
+                i.putExtra("photos",photos);
                 v.getContext().startActivity(i);
             }
-        });*/
+        });
     }
 
     @Override
